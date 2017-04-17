@@ -19,14 +19,14 @@ var HandleSwipes = (function(window, document, undefined) {
         this.startPos = { x: null, y: null }
         this.endPos = { x: null, y: null }
 
+        this.handleTouchStart = this.handleTouchStart.bind(this)
+        this.handleTouchEnd = this.handleTouchEnd.bind(this)
+
         this.addEventListener()
     }
 
     HandleSwipes.prototype = {
         addEventListener: function addEventListener() {
-            this.handleTouchStart = this.handleTouchStart.bind(this)
-            this.handleTouchEnd = this.handleTouchEnd.bind(this)
-
             this.el.addEventListener('touchstart', this.handleTouchStart)
         },
 
