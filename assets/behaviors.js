@@ -1,0 +1,77 @@
+/**
+ * Product Walkthrough Initializer
+ * @requires Walkthrough, ScrollView, HandleSwipes
+ */
+
+(function (window, document, Walkthrough, ScrollView, HandleSwipes, undefined) {
+    'use strict'
+
+    function addEvents(container) {
+        // initialize walkthrough
+        var walkthrough = new Walkthrough(container)
+
+        var ticking = false // used for scroll debouncing
+        var scrollView = new ScrollView(container)
+
+        // debounced scroll handling
+        function handleScroll(evt) {
+            // if a request is already queued, don’t queue up another one
+            if (!ticking) {
+                requestAnimationFrame(handleNewScrollPosition)
+                ticking = true
+            }
+        }
+
+        function handleNewScrollPosition() {
+            // allow a new scroll event to be handled
+            ticking = false
+
+            // if the walkthrough is in-view, start autoplaying
+            if (scrollView.isInView()) {
+                walkthrough.autoPlay()
+
+                // only autoplay once per page load
+                document.removeEventListener('scroll', handleScroll)
+            }
+        }
+
+        function handleClick(evt) {
+            evt.preventDefault()
+            if (evt.srcElement.matches('figcaption')) {
+                // once the user interacts with the walkthrough, stop auto-playing
+                walkthrough.disableAutoPlay()
+
+                // we know the item the user clicked on, so go straight to it
+                walkthrough.setItem(evt.srcElement.parentNode)
+            }
+        }
+
+        function handleSwipeLeft() {
+            walkthrough.next()
+        }
+
+        function handleSwipeRight() {
+            walkthrough.previous()
+        }
+
+        // initialize swipe handling
+        new HandleSwipes(container, {
+            swipeLeft: handleSwipeLeft,
+            swipeRight: handleSwipeRight
+        })
+
+        // initialize click handling
+        container.addEventListener('click', handleClick)
+
+        // initialize scroll detection
+        document.addEventListener('scroll', handleScroll)
+    }
+
+    function init() {
+        // add event handlers
+        addEvents(document.querySelector('.walkthrough'))
+    }
+
+    document.addEventListener('DOMContentLoaded', init)
+
+}(this, this.document, Walkthrough, ScrollView, HandleSwipes))
