@@ -1,7 +1,7 @@
 var HandleSwipes = (function(window, document, undefined) {
     'use strict'
 
-    function HandleSwipes(el, callbacks) {
+    function HandleSwipes(el, callbacks, swipeThreshold) {
         if (!el) {
             throw 'No element specified'
             return {}
@@ -11,7 +11,7 @@ var HandleSwipes = (function(window, document, undefined) {
 
         function noop() {}
 
-        this.swipeThreshold = 24 // px
+        this.swipeThreshold = swipeThreshold || 24 // px
 
         this.swipeLeft = callbacks.swipeLeft || noop
         this.swipeRight = callbacks.swipeLeft || noop

@@ -74,4 +74,4 @@
 
     document.addEventListener('DOMContentLoaded', init)
 
-}(this, this.document, Walkthrough, ScrollView, HandleSwipes))
+}.call(this, this, this.document, Walkthrough, ScrollView, HandleSwipes))
