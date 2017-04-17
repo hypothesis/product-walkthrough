@@ -11,6 +11,8 @@ var HandleSwipes = (function(window, document, undefined) {
 
         function noop() {}
 
+        this.swipeThreshold = 24 // px
+
         this.swipeLeft = callbacks.swipeLeft || noop
         this.swipeRight = callbacks.swipeLeft || noop
         this.swipeUp = callbacks.swipeLeft || noop
@@ -44,19 +46,19 @@ var HandleSwipes = (function(window, document, undefined) {
             this.endPos.x = evt.pageX
             this.endPos.y = evt.pageY
 
-            // if it's a swipe, what direction?
+            // detach touchend listener
+            this.el.removeEventListener('touchend', this.handleTouchEnd)
+
             if (this.isSwipe()) {
                 // call the callback for the swipe direction
                 this[this.swipeDirection()]()
             }
-
-            // detach touchend listener
-            this.el.removeEventListener('touchend', this.handleTouchEnd)
         },
 
-        // it's a swipe if the user moves her finger more than 24px while touching the screen
+        // it’s a swipe if the user moves their finger more than
+        // the swipe threshold while touching the screen
         isSwipe: function isSwipe() {
-            return (Math.abs(this.startPos.x - this.endPos.x) > 24) || (Math.abs(this.endPos.y - this.endPos.y) > 24)
+            return (Math.abs(this.startPos.x - this.endPos.x) > this.swipeThreshold) || (Math.abs(this.endPos.y - this.endPos.y) > this.swipeThreshold)
         },
 
         // return the swipe direction
