@@ -33,6 +33,7 @@ var AnimationController = (function(window, document, undefined) {
         },
 
         _restart: function _restart() {
+            this.stop()
             this.start(true)
         },
 
