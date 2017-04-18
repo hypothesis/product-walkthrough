@@ -9,7 +9,7 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
 
     function Walkthrough(container, animationFrameDuration) {
         if (!container) {
-            throw 'No element specified'
+            throw 'No container element specified'
         }
 
         this.container = container
@@ -22,7 +22,7 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
             return {
                 next: noop,
                 previous: noop,
-                setItem: noop,
+                setChapter: noop,
                 autoPlay: noop,
                 stopAutoPlaying: noop
             }
@@ -31,47 +31,54 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
         this.animationFrameDuration = animationFrameDuration || 950 // ms
         this.canAutoPlay = true
 
-        function createItem(item, idx) {
-            item.dataset.index = idx
-            var animation = new AnimationController(item.querySelector('.images'), this.animationFrameDuration)
-            var progressBar = new ProgressBarController(item.querySelector('figcaption'), this.next.bind(this))
+        function createChapter(figure, idx) {
+            figure.dataset.index = idx
+            figcaptions[idx].dataset.index = idx
+
+            var animation = new AnimationController(figure, this.animationFrameDuration)
+            var progressBar = new ProgressBarController(figcaptions[idx], this.next.bind(this))
+
             return {
-                container: item,
+                figure: figure,
+                figcaption: figcaptions[idx],
                 animation: animation,
                 progressBar: progressBar
             }
         }
 
-        var figures = this.container.getElementsByTagName('figure')
+        var figures = container.getElementsByTagName('figure')
+        var figcaptions = container.getElementsByTagName('figcaption')
 
-        this.items = Array.prototype.slice.call(figures, 0).map(createItem.bind(this))
+        this.chapters = Array.prototype.slice.call(figures, 0).map(createChapter.bind(this))
     }
 
     Walkthrough.prototype = {
-        _getSelectedItem: function _getSelectedItem() {
-            return document.querySelector('.walkthrough > figure.selected')
+        _getSelectedChapter: function _getSelectedChapter() {
+            return this.container.querySelector('figcaption.selected')
         },
 
         _getItemByIndex: function _getItemByIndex(index) {
-            return document.querySelector('.walkthrough > figure[data-index="' + index + '"]')
+            return this.container.querySelector('figcaption[data-index="' + index + '"]')
         },
 
-        // takes a <figure> element (container for a gallery item)
-        setItem: function setItem(el) {
+        // takes a <figcaption> element
+        setChapter: function setChapter(figcaption) {
             // shut down any animations currently running
-            this.items.forEach(function (item) {
-                item.animation.stop()
-                item.progressBar.reset()
-                item.container.classList.remove('selected')
+            this.chapters.forEach(function (chapter) {
+                chapter.animation.stop()
+                chapter.progressBar.reset()
+                chapter.figure.classList.remove('selected')
+                chapter.figcaption.classList.remove('selected')
             })
 
             // start the new animation
-            var idx = el.dataset.index || 0
+            var idx = figcaption.dataset.index || 0
             var loop = !this.canAutoPlay
-            if (this.items && this.items[idx]) {
-                this.items[idx].container.classList.add('selected')
-                this.items[idx].animation.start(loop)
-                this.canAutoPlay && this.items[idx].progressBar.play(this.items[idx].animation.duration)
+            if (this.chapters && this.chapters[idx]) {
+                this.chapters[idx].figure.classList.add('selected')
+                this.chapters[idx].figcaption.classList.add('selected')
+                this.chapters[idx].animation.start(loop)
+                this.canAutoPlay && this.chapters[idx].progressBar.play(this.chapters[idx].animation.duration)
             }
         },
 
@@ -80,7 +87,7 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
                 return
             }
 
-            var selected = this._getSelectedItem()
+            var selected = this._getSelectedChapter()
             var index
             var nextItem
 
@@ -90,7 +97,7 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
                     ++index
                     nextItem = this._getItemByIndex(index)
                     if (nextItem) {
-                        this.setItem(nextItem)
+                        this.setChapter(nextItem)
                     }
                 }
             }
@@ -98,7 +105,7 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
         },
 
         previous: function previous() {
-            var selected = this._getSelectedItem()
+            var selected = this._getSelectedChapter()
             var index
             var prevItem
 
@@ -108,7 +115,7 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
                     --index
                     prevItem = this._getItemByIndex(index)
                     if (prevItem) {
-                        this.setItem(prevItem)
+                        this.setChapter(prevItem)
                     }
                 }
             }
@@ -120,7 +127,7 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
         },
 
         autoPlay: function autoPlay() {
-            var selected = this._getSelectedItem()
+            var selected = this._getSelectedChapter()
             var index
 
             if (selected) {
@@ -130,7 +137,7 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
                         this.next()
                     }
                     else {
-                        this.setItem(selected)
+                        this.setChapter(selected)
                     }
                 }
             }

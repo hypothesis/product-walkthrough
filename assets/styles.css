@@ -8,69 +8,67 @@ main {
     }
 
 .walkthrough {
-    height: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     margin: 1em 0;
     position: relative;
     width: 100%;
 }
-    .walkthrough figure {
-        display: flex;
-        height: 100%;
-        margin: 0;
-        pointer-events: none;
-        position: absolute;
-        width: 100%;
+    .walkthrough .images {
+        flex-basis: 58%;
+        overflow: hidden;
+        padding-bottom: 33%; /* height is 67% of the width, 2:3 aspect ratio */
+        position: relative;
     }
-        .walkthrough figure .images {
+        .walkthrough .images figure {
 
-/* TODO remove this */
-background: rgba(255,0,0,0.1);
+            /* TODO remove this */
+            background: rgba(255,0,0,0.1);
 
-            height: 100%;
+            bottom: 0;
+            left: 0;
+            margin: 0;
+            overflow: visible;
+            pointer-events: none;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+            .walkthrough .images figure img {
+                height: 100%;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+        .walkthrough .images figure, .walkthrough .images figure img {
             opacity: 0;
-            position: relative;
-            width: 685px;
             transition: opacity 0.5s;
         }
-            .walkthrough figure .images img {
-                max-height: 100%;
-                max-width: 100%;
-                opacity: 0;
-                position: absolute;
-                transition: opacity 0.5s;
-            }
-            .walkthrough figure.selected .images, .walkthrough figure.selected .images img.selected {
+            .walkthrough .images figure.selected, .walkthrough .images figure.selected img.selected {
                 opacity: 1;
             }
-        .walkthrough figure figcaption {
+    .walkthrough .captions {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 38%;
+        justify-content: center;
+    }
+        .walkthrough .captions figcaption {
             align-items: center;
             background: white;
             cursor: pointer;
             display: flex;
-            height: 94px;
-            margin-left: 60px;
+            flex-basis: 22%;
             padding: 0 26px;
             pointer-events: auto;
             position: relative;
             transition: background 0.5s;
-            width: 360px;
         }
-            .walkthrough figure.selected figcaption {
+            .walkthrough .captions figcaption.selected {
                 background: rgb(245, 245, 245);
             }
-            .walkthrough figure:nth-child(1) figcaption {
-                top: 20px;
-            }
-            .walkthrough figure:nth-child(2) figcaption {
-                top: 134px;
-            }
-            .walkthrough figure:nth-child(3) figcaption {
-                top: 248px;
-            }
-            .walkthrough figure:nth-child(4) figcaption {
-                top: 362px;
-            }
-                .walkthrough figure.selected figcaption .progress-bar {
+                .walkthrough .captions figcaption.selected .progress-bar {
                     background: red;
                     content: ' ';
                     height: 0;
@@ -81,7 +79,7 @@ background: rgba(255,0,0,0.1);
                 }
 
 /* under some magical size, scroll horizontally rather than stack */
-@media (max-width: 1024px) {
+/*@media (max-width: 1023px) {
     main {
         width: 800px;
     }
@@ -101,4 +99,4 @@ background: rgba(255,0,0,0.1);
             .walkthrough figure figcaption {
                 position: static;
             }
-}
+}*/

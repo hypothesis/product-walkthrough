@@ -42,7 +42,7 @@
                 walkthrough.disableAutoPlay()
 
                 // we know the item the user clicked on, so go straight to it
-                walkthrough.setItem(evt.srcElement.parentNode)
+                walkthrough.setChapter(evt.srcElement)
             }
         }
 
