@@ -53,13 +53,14 @@ main {
         flex-direction: column;
         flex-basis: 38%;
         justify-content: center;
+        padding: 20px 0;
     }
         .walkthrough .captions figcaption {
             align-items: center;
             background: white;
             cursor: pointer;
             display: flex;
-            flex-basis: 22%;
+            flex-grow: 1;
             padding: 0 26px;
             pointer-events: auto;
             position: relative;
