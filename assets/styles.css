@@ -1,7 +1,7 @@
 main {
     font: 16px/1.25 Lato, Helvetica, Sans-Serif;
     margin: 1em auto;
-    width: 1280px;
+    width: 90%;
 }
     main p {
         width: 400px;
@@ -19,7 +19,7 @@ main {
         margin: 0;
         pointer-events: none;
         position: absolute;
-        width: 1126px;
+        width: 100%;
     }
         .walkthrough figure .images {
 
