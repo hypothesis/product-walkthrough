@@ -67,10 +67,11 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
 
             // start the new animation
             var idx = el.dataset.index || 0
+            var loop = !this.canAutoPlay
             if (this.items && this.items[idx]) {
                 this.items[idx].container.classList.add('selected')
-                this.items[idx].animation.start()
-                this.items[idx].progressBar.play(this.items[idx].animation.duration)
+                this.items[idx].animation.start(loop)
+                this.canAutoPlay && this.items[idx].progressBar.play(this.items[idx].animation.duration)
             }
         },
 

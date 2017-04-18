@@ -32,11 +32,20 @@ var AnimationController = (function(window, document, undefined) {
             }
         },
 
-        start: function play() {
+        _restart: function _restart() {
+            this.start(true)
+        },
+
+        start: function start(loop) {
             this.currentFrameIndex = 0
             this._setFrame(this.frames[this.currentFrameIndex])
             this.timer = setInterval(this._nextFrame.bind(this), this.msPerFrame)
-            setTimeout(this.stop.bind(this), this.duration)
+            if (loop) {
+                setTimeout(this._restart.bind(this), this.duration)
+            }
+            else {
+                setTimeout(this.stop.bind(this), this.duration)
+            }
         },
 
         stop: function stop() {
