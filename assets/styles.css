@@ -53,7 +53,6 @@ main {
         flex-direction: column;
         flex-basis: 38%;
         justify-content: center;
-        padding: 20px 0;
     }
         .walkthrough .captions figcaption {
             align-items: center;
@@ -61,7 +60,7 @@ main {
             cursor: pointer;
             display: flex;
             flex-grow: 1;
-            padding: 0 26px;
+            padding: 26px;
             pointer-events: auto;
             position: relative;
             transition: background 0.5s;
@@ -80,24 +79,36 @@ main {
                 }
 
 /* under some magical size, scroll horizontally rather than stack */
-/*@media (max-width: 1023px) {
-    main {
-        width: 800px;
-    }
-
+@media (max-width: 799px) {
     .walkthrough {
-        width: 4000px;
+        flex-direction: column;
     }
-        .walkthrough figure {
-            display: inline-block;
+        .walkthrough .images {
+            display: block;
+            flex-basis: auto;
+            margin: 0 auto;
             position: static;
         }
-            .walkthrough figure .images {
-                height: 400px;
-                opacity: 1;
-                width: 640px;
+            .walkthrough .images figure {}
+                .walkthrough .images figure img {
+                    left: 0;
+                    margin: 0 auto;
+                    right: 0;
+                }
+        .walkthrough .captions {
+            display: block;
+            overflow: auto;
+            width: 100%;
+        }
+            .walkthrough .captions .captions-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                width: 300vw;
             }
-            .walkthrough figure figcaption {
-                position: static;
-            }
-}*/
+                .walkthrough .captions figcaption {
+                    flex-grow: 0;
+                    padding: 26px;
+                    width: 67vw;
+                }
+}
