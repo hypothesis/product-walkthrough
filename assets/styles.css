@@ -112,3 +112,17 @@ main {
                     width: 67vw;
                 }
 }
+
+/* Format captions */
+.caption-head {
+    display: block;
+    font-weight: bold;
+}
+
+.caption-body {
+    display: block;
+}
+
+.caption-emphasis {
+    color: #bd1c2b;
+}
