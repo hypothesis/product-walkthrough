@@ -37,12 +37,15 @@
 
         function handleClick(evt) {
             evt.preventDefault()
-            if (evt.srcElement.matches('figcaption')) {
+
+            var $figcaption = $(evt.srcElement).closest('figcaption')
+
+            if ($figcaption[0]) {
                 // once the user interacts with the walkthrough, stop auto-playing
                 walkthrough.disableAutoPlay()
 
                 // we know the item the user clicked on, so go straight to it
-                walkthrough.setChapter(evt.srcElement)
+                walkthrough.setChapter($figcaption[0])
             }
         }
 

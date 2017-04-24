@@ -30,7 +30,6 @@ main {
             left: 0;
             margin: 0;
             overflow: visible;
-            pointer-events: none;
             position: absolute;
             right: 0;
             top: 0;
@@ -61,10 +60,16 @@ main {
             display: flex;
             flex-grow: 1;
             padding: 26px;
-            pointer-events: auto;
             position: relative;
             transition: background 0.5s;
         }
+            .walkthrough .captions figcaption strong {
+                font-weight: bold;
+            }
+            .walkthrough .captions figcaption em {
+                color: #bd1c2b;
+                font-style: normal;
+            }
             .walkthrough .captions figcaption.selected {
                 background: rgb(245, 245, 245);
             }
