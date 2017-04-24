@@ -13,6 +13,7 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
         }
 
         this.container = container
+        this.selectedClass = 'wt-selected'
 
         // feature detection for older browsers
         // classList is sufficient because it’s the feature that’s
@@ -35,8 +36,8 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
             figure.dataset.index = idx
             figcaptions[idx].dataset.index = idx
 
-            var animation = new AnimationController(figure, this.animationFrameDuration)
-            var progressBar = new ProgressBarController(figcaptions[idx], this.next.bind(this))
+            var animation = new AnimationController(figure, this.animationFrameDuration, this.selectedClass)
+            var progressBar = new ProgressBarController(figcaptions[idx], this.next.bind(this), 'wt-progress-bar')
 
             return {
                 figure: figure,
@@ -54,7 +55,7 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
 
     Walkthrough.prototype = {
         _getSelectedChapter: function _getSelectedChapter() {
-            return this.container.querySelector('figcaption.selected')
+            return this.container.querySelector('figcaption.' + this.selectedClass)
         },
 
         _getItemByIndex: function _getItemByIndex(index) {
@@ -62,7 +63,7 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
         },
 
         _scrollCaptionIntoView: function _scrollCaptionIntoView() {
-            $('.captions').scrollTo($('figcaption.selected'), 250, { axis: 'x' })
+            $('.captions').scrollTo($('figcaption.' + this.selectedClass), 250, { axis: 'x' })
         },
 
         // takes a <figcaption> element
@@ -71,16 +72,16 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
             this.chapters.forEach(function (chapter) {
                 chapter.animation.stop()
                 chapter.progressBar.reset()
-                chapter.figure.classList.remove('selected')
-                chapter.figcaption.classList.remove('selected')
-            })
+                chapter.figure.classList.remove(this.selectedClass)
+                chapter.figcaption.classList.remove(this.selectedClass)
+            }.bind(this))
 
             // start the new animation
             var idx = figcaption.dataset.index || 0
             var loop = !this.canAutoPlay
             if (this.chapters && this.chapters[idx]) {
-                this.chapters[idx].figure.classList.add('selected')
-                this.chapters[idx].figcaption.classList.add('selected')
+                this.chapters[idx].figure.classList.add(this.selectedClass)
+                this.chapters[idx].figcaption.classList.add(this.selectedClass)
                 this.chapters[idx].animation.start(loop)
                 this._scrollCaptionIntoView()
                 this.canAutoPlay && this.chapters[idx].progressBar.play(this.chapters[idx].animation.duration)

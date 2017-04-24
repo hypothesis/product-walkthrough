@@ -4,13 +4,13 @@
 var ProgressBarController = (function(window, document, undefined) {
     'use strict'
 
-    function ProgressBarController(el, callback) {
+    function ProgressBarController(el, callback, progressBarClass) {
         if (!el) {
             throw 'No element specified'
         }
         // add the progress bar element
         this.progressBar = document.createElement('SPAN')
-        this.progressBar.classList.add('progress-bar')
+        this.progressBar.classList.add(progressBarClass || 'progress-bar')
         el.appendChild(this.progressBar)
         this.canPlay
         this.callback = callback || function noop() {}

@@ -15,13 +15,13 @@ main {
     position: relative;
     width: 100%;
 }
-    .walkthrough .images {
+    .walkthrough .wt-images {
         flex-basis: 58%;
         overflow: hidden;
         padding-bottom: 33%; /* height is 67% of the width, 2:3 aspect ratio */
         position: relative;
     }
-        .walkthrough .images figure {
+        .walkthrough .wt-images figure {
             bottom: 0;
             left: 0;
             margin: 0;
@@ -30,26 +30,26 @@ main {
             right: 0;
             top: 0;
         }
-            .walkthrough .images figure img {
+            .walkthrough .wt-images figure img {
                 height: 100%;
                 position: absolute;
                 right: 0;
                 top: 0;
             }
-        .walkthrough .images figure, .walkthrough .images figure img {
+        .walkthrough .wt-images figure, .walkthrough .wt-images figure img {
             opacity: 0;
             transition: opacity 0.5s;
         }
-            .walkthrough .images figure.selected, .walkthrough .images figure.selected img.selected {
+            .walkthrough .wt-images figure.wt-selected, .walkthrough .wt-images figure.wt-selected img.wt-selected {
                 opacity: 1;
             }
-    .walkthrough .captions {
+    .walkthrough .wt-captions {
         display: flex;
         flex-direction: column;
         flex-basis: 38%;
         justify-content: center;
     }
-        .walkthrough .captions figcaption {
+        .walkthrough .wt-captions figcaption {
             align-items: center;
             background: white;
             cursor: pointer;
@@ -59,17 +59,17 @@ main {
             position: relative;
             transition: background 0.5s;
         }
-            .walkthrough .captions figcaption strong {
+            .walkthrough .wt-captions figcaption strong {
                 font-weight: bold;
             }
-            .walkthrough .captions figcaption em {
+            .walkthrough .wt-captions figcaption em {
                 color: #bd1c2b;
                 font-style: normal;
             }
-            .walkthrough .captions figcaption.selected {
+            .walkthrough .wt-captions figcaption.wt-selected {
                 background: rgb(245, 245, 245);
             }
-                .walkthrough .captions figcaption.selected .progress-bar {
+                .walkthrough .wt-captions figcaption.wt-selected .wt-progress-bar {
                     background: red;
                     content: ' ';
                     height: 0;
@@ -84,30 +84,30 @@ main {
     .walkthrough {
         flex-direction: column;
     }
-        .walkthrough .images {
+        .walkthrough .wt-images {
             display: block;
             flex-basis: auto;
             padding-bottom: 67%;
         }
-            .walkthrough .images figure {}
-                .walkthrough .images figure img {
+            .walkthrough .wt-images figure {}
+                .walkthrough .wt-images figure img {
                     left: 0;
                     margin: 0 auto;
                     right: 0;
                 }
-        .walkthrough .captions {
+        .walkthrough .wt-captions {
             display: block;
             flex-basis: auto;
             overflow: auto;
             width: 100%;
         }
-            .walkthrough .captions .captions-container {
+            .walkthrough .wt-captions .wt-captions-container {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-around;
                 width: 300vw;
             }
-                .walkthrough .captions figcaption {
+                .walkthrough .wt-captions figcaption {
                     flex-grow: 0;
                     padding: 26px;
                     width: 67vw;

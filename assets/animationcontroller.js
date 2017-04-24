@@ -4,7 +4,7 @@
 var AnimationController = (function(window, document, undefined) {
     'use strict'
 
-    function AnimationController(container, msPerFrame) {
+    function AnimationController(container, msPerFrame, selectedClass) {
         if (!container) {
             throw 'No container specified'
         }
@@ -15,14 +15,15 @@ var AnimationController = (function(window, document, undefined) {
         this.msPerFrame = msPerFrame || 1000
         this.duration = this.frames.length * this.msPerFrame
         this.timer
+        this.selectedClass = selectedClass || 'selected'
     }
 
     AnimationController.prototype = {
         _setFrame: function _setFrame(frame) {
             this.frames.forEach(function (frame) {
-                frame.classList.remove('selected')
-            })
-            frame.classList.add('selected')
+                frame.classList.remove(this.selectedClass)
+            }.bind(this))
+            frame.classList.add(this.selectedClass)
         },
 
         _nextFrame: function _nextFrame() {
