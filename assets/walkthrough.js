@@ -28,7 +28,7 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
             }
         }
 
-        this.animationFrameDuration = animationFrameDuration || 950 // ms
+        this.animationFrameDuration = animationFrameDuration || 1250 // ms
         this.canAutoPlay = true
 
         function createChapter(figure, idx) {
