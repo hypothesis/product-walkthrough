@@ -4,7 +4,7 @@ main {
     width: 90%;
 }
     main p {
-        width: 400px;
+        max-width: 400px;
     }
 
 .walkthrough {
@@ -86,8 +86,7 @@ main {
         .walkthrough .images {
             display: block;
             flex-basis: auto;
-            margin: 0 auto;
-            position: static;
+            padding-bottom: 67%;
         }
             .walkthrough .images figure {}
                 .walkthrough .images figure img {
@@ -97,6 +96,7 @@ main {
                 }
         .walkthrough .captions {
             display: block;
+            flex-basis: auto;
             overflow: auto;
             width: 100%;
         }

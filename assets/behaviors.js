@@ -1,9 +1,9 @@
 /**
  * Product Walkthrough Initializer
- * @requires Walkthrough, ScrollView, HandleSwipes
+ * @requires jQuery, jQuery scrollTo plugin, Walkthrough, ScrollView, HandleSwipes
  */
 
-(function (window, document, Walkthrough, ScrollView, HandleSwipes, undefined) {
+(function (window, document, $, Walkthrough, ScrollView, HandleSwipes, undefined) {
     'use strict'
 
     function addEvents(container) {
@@ -47,10 +47,16 @@
         }
 
         function handleSwipeLeft() {
+            // once the user interacts with the walkthrough, stop auto-playing
+            walkthrough.disableAutoPlay()
+
             walkthrough.next()
         }
 
         function handleSwipeRight() {
+            // once the user interacts with the walkthrough, stop auto-playing
+            walkthrough.disableAutoPlay()
+
             walkthrough.previous()
         }
 
@@ -74,4 +80,4 @@
 
     document.addEventListener('DOMContentLoaded', init)
 
-}.call(this, this, this.document, Walkthrough, ScrollView, HandleSwipes))
+}.call(this, this, this.document, jQuery, Walkthrough, ScrollView, HandleSwipes))

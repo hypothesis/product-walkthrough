@@ -14,7 +14,7 @@ var HandleSwipes = (function(window, document, undefined) {
         this.swipeThreshold = swipeThreshold || 24 // px
 
         this.swipeLeft = callbacks.swipeLeft || noop
-        this.swipeRight = callbacks.swipeLeft || noop
+        this.swipeRight = callbacks.swipeRight || noop
         this.swipeUp = callbacks.swipeLeft || noop
         this.swipeDown = callbacks.swipeLeft || noop
 

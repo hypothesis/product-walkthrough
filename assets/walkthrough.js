@@ -61,6 +61,10 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
             return this.container.querySelector('figcaption[data-index="' + index + '"]')
         },
 
+        _scrollCaptionIntoView: function _scrollCaptionIntoView() {
+            $('.captions').scrollTo($('figcaption.selected'), 250, { axis: 'x' })
+        },
+
         // takes a <figcaption> element
         setChapter: function setChapter(figcaption) {
             // shut down any animations currently running
@@ -78,15 +82,12 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
                 this.chapters[idx].figure.classList.add('selected')
                 this.chapters[idx].figcaption.classList.add('selected')
                 this.chapters[idx].animation.start(loop)
+                this._scrollCaptionIntoView()
                 this.canAutoPlay && this.chapters[idx].progressBar.play(this.chapters[idx].animation.duration)
             }
         },
 
         next: function next() {
-            if (!this.canAutoPlay) {
-                return
-            }
-
             var selected = this._getSelectedChapter()
             var index
             var nextItem

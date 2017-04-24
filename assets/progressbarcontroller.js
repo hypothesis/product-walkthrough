@@ -12,6 +12,7 @@ var ProgressBarController = (function(window, document, undefined) {
         this.progressBar = document.createElement('SPAN')
         this.progressBar.classList.add('progress-bar')
         el.appendChild(this.progressBar)
+        this.canPlay
         this.callback = callback || function noop() {}
     }
 
@@ -24,10 +25,13 @@ var ProgressBarController = (function(window, document, undefined) {
         },
 
         reset: function reset() {
+            this.canPlay = false
             this._update(0)
         },
 
         play: function play(ms) {
+            this.canPlay = true
+
             var start = +new Date
             var end = start + ms
 
@@ -38,12 +42,14 @@ var ProgressBarController = (function(window, document, undefined) {
 
                 this._update(pct)
 
-                if (current < end) {
-                    requestAnimationFrame(tick)
-                }
-                else {
-                    this.reset()
-                    this.callback()
+                if (this.canPlay) {
+                    if (current < end) {
+                        requestAnimationFrame(tick)
+                    }
+                    else {
+                        this.reset()
+                        this.callback()
+                    }
                 }
             }
 
