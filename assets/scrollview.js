@@ -5,35 +5,31 @@
 var ScrollView = (function(window, document, $, undefined) {
     'use strict'
 
-    function ScrollView(el, thresholds) {
+    function ScrollView(el) {
         if (!el) {
             throw 'No element specified'
         }
 
-        this.el = el
-
-        // default to 80% of the element showing
-        this.thresholds = thresholds || {
-            top: 0.79,
-            bottom: 1.81
-        }
+        // this.el = el
+        this.el = (function (el) {
+            if (typeof jQuery === 'function' && el instanceof jQuery) {
+                el = el[0]
+            }
+            return el
+        }(el))
     }
 
     ScrollView.prototype = {
+        // based on http://stackoverflow.com/a/7557433/11577
         isInView: function isInView() {
-            // compute these every time in case the user has resized the browser
-            var scrollTop = $(window).scrollTop()
-            var viewportHeight = $(window).height()
-            var fromTop = $(this.el).offset().top
-            var elHeight = $(this.el).height()
+            var rect = this.el.getBoundingClientRect()
 
-            // maths
-            var scrollBottom = scrollTop + viewportHeight
-            var elBottom = fromTop + elHeight
-            var bottomDiff = elBottom - scrollBottom
-            var percentageShowing = 1 - (bottomDiff / elHeight)
+            var topInView = rect.top >= 0
+            var rightInView = rect.right <= $(window).width()
+            var bottomInView = rect.bottom <= $(window).height()
+            var leftInView = rect.left >= 0
 
-            return percentageShowing > this.thresholds.top && percentageShowing < this.thresholds.bottom
+            return topInView && rightInView && bottomInView && leftInView
         }
     }
 
