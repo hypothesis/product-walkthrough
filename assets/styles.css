@@ -59,6 +59,9 @@ main {
             position: relative;
             transition: background 0.5s;
         }
+            .walkthrough .wt-captions figcaption p {
+                margin: 0;
+            }
             .walkthrough .wt-captions figcaption strong {
                 font-weight: bold;
             }

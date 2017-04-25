@@ -2,7 +2,7 @@
  * Like a gallery, only we call it a walkthrough
  * @requires AnimationController, ProgressBarController
  */
-var Walkthrough = (function(window, document, AnimationController, ProgressBarController, undefined) {
+var Walkthrough = (function(window, document, $, AnimationController, ProgressBarController, undefined) {
     'use strict'
 
     function noop() {}
@@ -149,4 +149,4 @@ var Walkthrough = (function(window, document, AnimationController, ProgressBarCo
 
     return Walkthrough
 
-}).call(this, this, this.document, AnimationController, ProgressBarController)
+}).call(this, this, this.document, jQuery, AnimationController, ProgressBarController)
